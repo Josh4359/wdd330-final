@@ -80,7 +80,7 @@ async function searchVocab(term) {
 // kanji
 
 let engToKanji = { };
-fetch("../json/kanji-by-meaning.json")
+fetch("/json/kanji-by-meaning.json")
     .then(response => response.json())
     .then(json => engToKanji = json);
 
