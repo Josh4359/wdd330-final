@@ -6,10 +6,22 @@ import VocabDeck from "./VocabDeck.mjs";
 // b = button
 
 const b_vocab = document.querySelector("#vocab");
-b_vocab.addEventListener("click", () => newDeck(new VocabDeck()));
+b_vocab.addEventListener("click", vocabDeck);
 
 const b_kanji = document.querySelector("#kanji");
-b_kanji.addEventListener("click", () => newDeck(new KanjiDeck()));
+b_kanji.addEventListener("click", kanjiDeck);
+
+const e_label = document.querySelector("#label");
+
+function vocabDeck() {
+    e_label.textContent = "Vocabulary";
+    newDeck(new VocabDeck());
+}
+
+function kanjiDeck() {
+    e_label.textContent = "Kanji";
+    newDeck(new KanjiDeck());
+}
 
 const b_show_answer = document.querySelector(".show-answer");
 b_show_answer.addEventListener("click", () => showBack());
@@ -65,4 +77,4 @@ function showBack() {
     b_bad.classList.remove("hide");
 }
 
-newDeck(new VocabDeck());
+vocabDeck();

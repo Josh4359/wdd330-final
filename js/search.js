@@ -45,6 +45,19 @@ async function search() {
     loading = false;
 }
 
+const e_label = document.querySelector("#label");
+function updateLabel() {
+    switch (searchType) {
+        case CardType.Vocab:
+            e_label.textContent = "Vocabulary";
+            break;
+        case CardType.Kanji:
+            e_label.textContent = "Kanji";
+            break;
+    }
+}
+updateLabel();
+
 const e_list = document.querySelector("#list")
 e_list.addEventListener("click", (e) => {
     switch (searchType) {
@@ -62,8 +75,10 @@ e_list.addEventListener("click", (e) => {
 const vocabDeck = new VocabDeck();
 
 const b_vocab = document.querySelector("#vocab")
-b_vocab.addEventListener("click", (e) => {
+b_vocab.addEventListener("click", () => {
+    if (loading) return;
     searchType = CardType.Vocab;
+    updateLabel();
     search();
 });
 
@@ -87,8 +102,10 @@ fetch("./json/kanji-by-meaning.json")
 const kanjiDeck = new KanjiDeck();
 
 const b_kanji = document.querySelector("#kanji")
-b_kanji.addEventListener("click", (e) => {
+b_kanji.addEventListener("click", () => {
+    if (loading) return;
     searchType = CardType.Kanji;
+    updateLabel();
     search();
 });
 
