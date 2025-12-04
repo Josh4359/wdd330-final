@@ -1,41 +1,68 @@
-const card = document.querySelector(".card");
+import KanjiDeck from "./KanjiDeck.mjs";
+import VocabDeck from "./VocabDeck.mjs";
 
-const show_answer = document.querySelector(".show-answer");
+// d = data
+// e = element
+// b = button
 
-const good = document.querySelector(".good");
-const bad = document.querySelector(".bad");
+const b_vocab = document.querySelector("#vocab");
+b_vocab.addEventListener("click", () => newDeck(new VocabDeck()));
 
-show_answer.addEventListener("click", (e) => {
-    show_back();
-});
+const b_kanji = document.querySelector("#kanji");
+b_kanji.addEventListener("click", () => newDeck(new KanjiDeck()));
 
-good.addEventListener("click", (e) => {
-    show_front();
-});
+const b_show_answer = document.querySelector(".show-answer");
+b_show_answer.addEventListener("click", () => showBack());
 
-bad.addEventListener("click", (e) => {
-    show_front();
-});
+const b_good = document.querySelector(".good");
+b_good.addEventListener("click", () => review(true));
 
-function show_front() {
-    show_answer.classList.remove("hide");
+const b_bad = document.querySelector(".bad");
+b_bad.addEventListener("click", () => review(false));
 
-    good.classList.add("hide");
-    bad.classList.add("hide");
+let d_deck;
+let d_cards;
+let d_card;
+
+function newDeck(deck) {
+    d_deck = deck;
+    d_cards = Object.values(d_deck.get());
+    newCard();
 }
 
-function show_back() {
-    show_answer.classList.add("hide");
-
-    good.classList.remove("hide");
-    bad.classList.remove("hide");
+function newCard() {
+    d_card = d_cards[0];
+    showFront();
 }
 
-function test() {
-    fetch(`https://api.allorigins.win/get?url=${encodeURIComponent("https://jisho.org/api/v1/search/words?keyword=猫")}`)
-        .then(res => res.json())
-        .then(data => console.log(JSON.parse(data.contents)));
+function review(good) {
+    d_cards.splice(0, 1);
+    if (good)
+        d_cards.push(d_card);
+    else
+        d_cards.splice(1, 0, d_card);
+
+    newCard();
 }
 
-show_front();
-test();
+const e_card = document.querySelector(".card");
+
+function showFront() {
+    e_card.innerHTML = d_card.getFront();
+
+    b_show_answer.classList.remove("hide");
+
+    b_good.classList.add("hide");
+    b_bad.classList.add("hide");
+}
+
+function showBack() {
+    e_card.innerHTML = d_card.getBack();
+
+    b_show_answer.classList.add("hide");
+
+    b_good.classList.remove("hide");
+    b_bad.classList.remove("hide");
+}
+
+newDeck(new VocabDeck());

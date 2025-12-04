@@ -8,6 +8,9 @@ function headerTemplate() {
     <li>
         <a href="./deck.html">Deck</a>
     </li>
+    <li>
+        <a href="./draft.html">Study</a>
+    </li>
 </ul>
 </header>
 `

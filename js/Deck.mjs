@@ -1,5 +1,6 @@
 export default class Deck {
-    constructor() {
+    constructor(name) {
+        this.name = name;
         this._deck = this.load();
         this._cache = { };
     }
@@ -32,71 +33,49 @@ export default class Deck {
     }
 
     load() {
-        let load = localStorage.getItem("deck");
-        load = load ? JSON.parse(load) : { }
-        console.log(load);
+        let load = localStorage.getItem(`deck-${this.name}`);
+        load = load ? JSON.parse(load) : { };
         return load;
     }
 
     save() {
-        localStorage.setItem("deck", JSON.stringify(this._deck));
+        localStorage.setItem(`deck-${this.name}`, JSON.stringify(this._deck));
     }
 
     clearCache() {
         this._cache = { };
     }
 
-    template(element) {
-        const kanji = element.japanese[0].word || element.japanese[0].reading;
-        const kana = element.japanese[0].reading;
-        const english = element.senses[0].english_definitions.join(", ");
-        const button = this.has(element.slug)
-            ? '<button class="deck-remove">Remove from Deck</button>'
-            : '<button class="deck-add">Add to Deck</button>';
-
-        return `
-    <div data-slug="${element.slug}">
-        <div>${kanji}</div>
-        <div>${kana}</div>
-        <div>${english}</div>
-        ${button}
-    </div>
-    `;
-    }
-
-    render(container, deck) {
-        console.log(Object.keys(deck).length)
-        if (Object.keys(deck).length === 0) {
-            container.innerHTML = "No cards found!";
-            return;
-        }
+    render(deck) {
+        if (Object.keys(deck).length === 0)
+            return "No cards found!";
         
         let content = "";
         
-        deck.forEach(element => {
-            this._cache[element.slug] = element;
-            content += this.template(element)
+        deck.forEach(card => {
+            this._cache[card.key] = card;
+            content += card.getPreview(this.has(card.key));
         });
 
-        container.innerHTML = content;
+        return content;
     }
 
     clicked(e) {
         if (e.target.classList.contains("deck-add")) {
             const parent = e.target.parentElement;
-            const slug = parent.dataset.slug;
-            const element = this._cache[slug];
-            this.add(slug, element);
-            parent.outerHTML = this.template(element);
+            const key = parent.dataset.key;
+            const card = this._cache[key];
+            this.add(key, card);
+            parent.outerHTML = card.getPreview(true);
             console.log(this.get());
         }
 
         if (e.target.classList.contains("deck-remove")) {
             const parent = e.target.parentElement;
-            const slug = e.target.parentElement.dataset.slug;
-            const element = this.find(slug);
-            this.remove(slug);
-            parent.outerHTML = this.template(element);
+            const key = e.target.parentElement.dataset.key;
+            const card = this.find(key);
+            this.remove(key);
+            parent.outerHTML = card.getPreview(false);
             console.log(this.get());
         }
     }

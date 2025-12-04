@@ -1,3 +1,47 @@
 .hide {
     display: none;
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.flashcard {
+    display: grid;
+    grid-template-rows: min-content 50px;
+    justify-items: center;
+    gap: 10px;
+    
+    .card {
+        width: 300px;
+        padding: 0 10px;
+        outline: 1px solid grey;
+        display: grid;
+        grid-template-rows: 50px 50px 50px 50px 50px;
+        align-items: center;
+
+        * {
+            margin: auto 0;
+        }
+    }
+
+    .response {
+        width: 300px;
+        display: flex;
+        gap: 10px;
+
+        button {
+            width: 100%;
+        }
+    }
+}

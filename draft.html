@@ -5,14 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Final Project Draft</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/template.js" type="module"></script>
     <script src="./js/draft.js" type="module"></script>
 </head>
 <body>
-    <div class="card"></div>
-    
-    <button class="show-answer">show answer</button>
-    
-    <button class="good">good</button>
-    <button class="bad">bad</button>
+    <main>
+        <button id="vocab">Vocabulary</button>
+        <button id="kanji">Kanji</button>
+
+        <div class="flashcard">
+            <div class="card"></div>
+            
+            <div class="response">
+                <button class="show-answer">show answer</button>
+                
+                <button class="good">good</button>
+                <button class="bad">bad</button>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
