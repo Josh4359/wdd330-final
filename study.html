@@ -6,17 +6,24 @@
     <title>Final Project Draft</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/template.js" type="module"></script>
-    <script src="./js/draft.js" type="module"></script>
+    <script src="./js/study.js" type="module"></script>
 </head>
 <body>
     <main>
-        <button id="vocab">Vocabulary</button>
-        <button id="kanji">Kanji</button>
+        <h2>Study</h2>
+
+        <div class="row buttons">
+            <button id="vocab">Vocabulary</button>
+            <button id="kanji">Kanji</button>
+        </div>
         
         <h3 id="label"></h3>
 
         <div class="flashcard">
-            <div class="card"></div>
+            <div class="flashcard-card">
+                <div class="card front"></div>
+                <div class="card back"></div>
+            </div>
             
             <div class="response">
                 <button class="show-answer">show answer</button>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deck</title>
+    <link rel="stylesheet" href="./css/style.css">
     <script src="./js/template.js" type="module"></script>
     <script src="./js/deck.js" type="module"></script>
 </head>
@@ -11,12 +12,14 @@
     <main>
         <h2>Deck</h2>
         
-        <button id="vocab">Vocabulary</button>
-        <button id="kanji">Kanji</button>
+        <div class="row buttons">
+            <button id="vocab">Vocabulary</button>
+            <button id="kanji">Kanji</button>
+        </div>
         
         <h3 id="label"></h3>
 
-        <div id="list"></div>
+        <div class="list" id="list"></div>
     </main>
 </body>
 </html>

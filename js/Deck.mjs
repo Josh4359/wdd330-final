@@ -33,12 +33,16 @@ export default class Deck {
     }
 
     load() {
+        // note- localstorage
         let load = localStorage.getItem(`deck-${this.name}`);
+        // note- json
         load = load ? JSON.parse(load) : { };
         return load;
     }
 
     save() {
+        // note- localstorage
+        // note- json
         localStorage.setItem(`deck-${this.name}`, JSON.stringify(this._deck));
     }
 
@@ -62,6 +66,7 @@ export default class Deck {
 
     clicked(e) {
         if (e.target.classList.contains("deck-add")) {
+            // note- 
             const parent = e.target.parentElement;
             const key = parent.dataset.key;
             const card = this._cache[key];
